@@ -5,10 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zepto Apps</title>
+    <link rel="stylesheet" href="nav.css"> <!-- External CSS -->
+    <script src="nav.js" defer></script> <!-- External JS with defer to load after HTML -->
 </head>
 
 <body>
+    <nav>
+        <!-- Section containing logo and dropdown -->
+        <div class="section-one">
+            <!-- Logo -->
+            <img src="images/book-logo.png" alt="Logo" width="70" height="30">
 
+            <!-- Dropdown for genre or topics -->
+            <div class="dropdown-container">
+                <button type="button" class="dropdown-button" aria-haspopup="listbox" aria-expanded="false"
+                    aria-labelledby="listbox-label" onclick="toggleDropdown()">
+                    <!-- Selected dropdown item -->
+                    <span class="dropdown-selected">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt="User avatar" class="avatar">
+                        <span class="dropdown-text">Genre or Topic</span>
+                    </span>
+                    <!-- Dropdown icon -->
+                    <span class="dropdown-icon">
+                        <svg class="icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </button>
+
+                <!-- Dropdown list -->
+                <ul class="dropdown-options" id="dropdown-list">
+                    <li class="dropdown-option"
+                        onclick="selectOption('Wade Cooper', 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80')">
+                        <img src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt="Avatar" class="avatar">
+                        <span>Wade Cooper</span>
+                    </li>
+                    <!-- More options can be added here -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Search bar container -->
+        <label class="search-container">
+            <span class="search-icon">
+                <svg class="search-icon-svg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M15 10.5C15 12.9853 12.9853 15 10.5 15C8.01472 15 6 12.9853 6 10.5C6 8.01472 8.01472 6 10.5 6C12.9853 6 15 8.01472 15 10.5ZM14.1793 15.2399C13.1632 16.0297 11.8865 16.5 10.5 16.5C7.18629 16.5 4.5 13.8137 4.5 10.5C4.5 7.18629 7.18629 4.5 10.5 4.5C13.8137 4.5 16.5 7.18629 16.5 10.5C16.5 11.8865 16.0297 13.1632 15.2399 14.1792L20.0304 18.9697L18.9697 20.0303L14.1793 15.2399Z"
+                        fill="gray"></path>
+                </svg>
+            </span>
+            <input class="search-input" placeholder="Search for anything..." type="text" name="search" />
+        </label>
+
+        <!-- Wishlist link -->
+        <div class="wishlist-container">
+            <a href="#" class="wishlist-link">
+                <svg class="wishlist-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                </svg>
+                <div><span class="wishlist-count">0</span></div>
+            </a>
+        </div>
+    </nav>
 </body>
 
 </html>
