@@ -5,16 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zepto Apps</title>
-    <link rel="stylesheet" href="nav.css"> <!-- External CSS -->
+    <!-- External CSS -->
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="main.css">
     <script src="nav.js" defer></script> <!-- External JS with defer to load after HTML -->
 </head>
 
 <body>
     <nav>
-        <!-- Section containing logo and dropdown -->
-        <div class="section-one">
-            <!-- Logo -->
-            <img src="images/book-logo.png" alt="Logo" width="70" height="30">
+        <!-- Container for all content -->
+        <div class="nav-container">
+
+            <div style="display: flex; align-items: center; gap: 30px;">
+                <!-- Logo -->
+                <div class="logo">
+                    <img src="images/book-logo.png" alt="Logo">
+                </div>
+
+                <!-- Navigation menu -->
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home">Home</a></li>
+                    <li class="nav-item"><a href="#books">books</a></li>
+                    <li class="nav-item"><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Wishlist link -->
+            <div class="wishlist-container">
+                <a href="#" class="wishlist-link">
+                    <svg class="wishlist-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                    <div><span class="wishlist-count">0</span></div>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="filter-section">
+            <!-- Search bar container -->
+            <label class="search-container">
+                <span class="search-icon">
+                    <svg class="search-icon-svg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M15 10.5C15 12.9853 12.9853 15 10.5 15C8.01472 15 6 12.9853 6 10.5C6 8.01472 8.01472 6 10.5 6C12.9853 6 15 8.01472 15 10.5ZM14.1793 15.2399C13.1632 16.0297 11.8865 16.5 10.5 16.5C7.18629 16.5 4.5 13.8137 4.5 10.5C4.5 7.18629 7.18629 4.5 10.5 4.5C13.8137 4.5 16.5 7.18629 16.5 10.5C16.5 11.8865 16.0297 13.1632 15.2399 14.1792L20.0304 18.9697L18.9697 20.0303L14.1793 15.2399Z"
+                            fill="#0f172a"></path>
+                    </svg>
+                </span>
+                <input class="search-input" placeholder="Search for books..." type="text" name="search" />
+            </label>
 
             <!-- Dropdown for genre or topics -->
             <div class="dropdown-container">
@@ -49,30 +93,39 @@
             </div>
         </div>
 
-        <!-- Search bar container -->
-        <label class="search-container">
-            <span class="search-icon">
-                <svg class="search-icon-svg" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M15 10.5C15 12.9853 12.9853 15 10.5 15C8.01472 15 6 12.9853 6 10.5C6 8.01472 8.01472 6 10.5 6C12.9853 6 15 8.01472 15 10.5ZM14.1793 15.2399C13.1632 16.0297 11.8865 16.5 10.5 16.5C7.18629 16.5 4.5 13.8137 4.5 10.5C4.5 7.18629 7.18629 4.5 10.5 4.5C13.8137 4.5 16.5 7.18629 16.5 10.5C16.5 11.8865 16.0297 13.1632 15.2399 14.1792L20.0304 18.9697L18.9697 20.0303L14.1793 15.2399Z"
-                        fill="gray"></path>
-                </svg>
-            </span>
-            <input class="search-input" placeholder="Search for anything..." type="text" name="search" />
-        </label>
+        <!-- All page content goes here -->
+        <div class="grid-container">
+            <div class="card-container">
+                <div class="card-flex">
+                    <div class="card-image-container">
+                        <img class="card-image" src="https://ssl.du.ac.bd/fontView/images/body/17113593733954.jpeg"
+                            alt="Modern building architecture">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Company retreats</div>
+                        <a href="#" class="card-link">Incredible accommodation for your team</a>
+                        <p class="card-description">Looking to take your team away on a retreat to enjoy awesome food
+                            and take in some sunshine? We have a list of places to do just that.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container">
+                <div class="card-flex">
+                    <div class="card-image-container">
+                        <img class="card-image" src="https://ssl.du.ac.bd/fontView/images/body/17113593733954.jpeg"
+                            alt="Modern building architecture">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Company retreats</div>
+                        <a href="#" class="card-link">Incredible accommodation for your team</a>
+                        <p class="card-description">Looking to take your team away on a retreat to enjoy awesome food
+                            and take in some sunshine? We have a list of places to do just that.</p>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Wishlist link -->
-        <div class="wishlist-container">
-            <a href="#" class="wishlist-link">
-                <svg class="wishlist-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                    aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                </svg>
-                <div><span class="wishlist-count">0</span></div>
-            </a>
         </div>
-    </nav>
+    </div>
 </body>
 
 </html>
