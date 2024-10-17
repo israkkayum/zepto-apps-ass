@@ -8,7 +8,10 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="main.css">
-    <script src="nav.js" defer></script> <!-- External JS with defer to load after HTML -->
+    <!-- External JS with defer to load after HTML -->
+    <script src="dropdown.js" defer></script>
+    <script src="books.js"></script>
+
 </head>
 
 <body>
@@ -25,7 +28,7 @@
                 <!-- Navigation menu -->
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="#home">Home</a></li>
-                    <li class="nav-item"><a href="#books">books</a></li>
+                    <li class="nav-item"><a href="#books">Books</a></li>
                     <li class="nav-item"><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -57,7 +60,8 @@
                             fill="#0f172a"></path>
                     </svg>
                 </span>
-                <input class="search-input" placeholder="Search for books..." type="text" name="search" />
+                <input class="search-input" placeholder="Search for books..." type="text" name="search"
+                    id="search-input" />
             </label>
 
             <!-- Dropdown for genre or topics -->
@@ -94,37 +98,16 @@
         </div>
 
         <!-- All page content goes here -->
-        <div class="grid-container">
-            <div class="card-container">
-                <div class="card-flex">
-                    <div class="card-image-container">
-                        <img class="card-image" src="https://ssl.du.ac.bd/fontView/images/body/17113593733954.jpeg"
-                            alt="Modern building architecture">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Company retreats</div>
-                        <a href="#" class="card-link">Incredible accommodation for your team</a>
-                        <p class="card-description">Looking to take your team away on a retreat to enjoy awesome food
-                            and take in some sunshine? We have a list of places to do just that.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-container">
-                <div class="card-flex">
-                    <div class="card-image-container">
-                        <img class="card-image" src="https://ssl.du.ac.bd/fontView/images/body/17113593733954.jpeg"
-                            alt="Modern building architecture">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Company retreats</div>
-                        <a href="#" class="card-link">Incredible accommodation for your team</a>
-                        <p class="card-description">Looking to take your team away on a retreat to enjoy awesome food
-                            and take in some sunshine? We have a list of places to do just that.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="grid-container" id="book-list"> </div>
 
+        <!-- Pagination Section Start -->
+        <div class="pagination-container">
+            <ul class="pagination" id="pagination">
+
+            </ul>
         </div>
+        <!-- Pagination Section End -->
+
     </div>
 </body>
 
