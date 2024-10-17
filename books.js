@@ -2,24 +2,70 @@ document.addEventListener("DOMContentLoaded", function () {
   const bookList = document.getElementById("book-list");
   const pagination = document.getElementById("pagination");
   const searchInput = document.getElementById("search-input");
+  const dropdownButton = document.getElementById("dropdown-button");
+  const dropdownList = document.getElementById("dropdown-list");
+  const spinnerContainer = document.getElementById("spinner-container");
+
   let currentPage = 1;
   const booksPerPage = 10;
   let totalPages = 1;
   let booksData = [];
   let filteredBooks = []; // For filtered results
+  let genres = new Set(); // Store unique genres/topics
+
+  // Toggle dropdown visibility
+  dropdownButton.addEventListener("click", () => {
+    dropdownList.style.display =
+      dropdownList.style.display === "none" ? "block" : "none";
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (
+      !dropdownButton.contains(e.target) &&
+      !dropdownList.contains(e.target)
+    ) {
+      dropdownList.style.display = "none";
+    }
+  });
+
+  // Dropdown option select and filter books
+  dropdownList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dropdown-option")) {
+      const selectedGenre = e.target.getAttribute("data-genre");
+
+      // Update the selected genre text in the dropdown button
+      const dropdownText = document.querySelector(".dropdown-text");
+      dropdownText.textContent =
+        selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1);
+
+      // Filter books by the selected genre
+      filterBooksByGenre(selectedGenre);
+
+      // Close the dropdown after selecting an option
+      dropdownList.style.display = "none";
+    }
+  });
 
   // Fetch book data from the Gutenberg API
   async function fetchBooks() {
     try {
+      // Show the spinner before starting the fetch
+      spinnerContainer.style.display = "block";
+
       const response = await fetch("https://gutendex.com/books");
       const data = await response.json();
       booksData = data.results;
       filteredBooks = booksData; // Set filteredBooks initially to all books
+      extractGenres(booksData); // Extract genres from book data
+      populateDropdown(genres); // Populate dropdown with extracted genres
       totalPages = Math.ceil(filteredBooks.length / booksPerPage);
       displayBooks(filteredBooks, currentPage);
       generatePagination();
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      spinnerContainer.style.display = "none";
     }
   }
 
@@ -84,6 +130,40 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
       `;
       bookList.appendChild(div);
+    });
+  }
+
+  // Function to filter books by genre
+  function filterBooksByGenre(genre) {
+    filteredBooks = booksData.filter((book) => {
+      return book.subjects.some((subject) =>
+        subject.toLowerCase().includes(genre)
+      );
+    });
+    totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+    currentPage = 1;
+    displayBooks(filteredBooks, currentPage);
+    generatePagination();
+  }
+
+  // Extract unique genres/topics from the book data
+  function extractGenres(books) {
+    books.forEach((book) => {
+      book.subjects.forEach((subject) => {
+        genres.add(subject.toLowerCase()); // Add genre to the Set
+      });
+    });
+  }
+
+  // Populate dropdown with genres/topics
+  function populateDropdown(genres) {
+    dropdownList.innerHTML = ""; // Clear existing options
+    genres.forEach((genre) => {
+      const li = document.createElement("li");
+      li.classList.add("dropdown-option");
+      li.setAttribute("data-genre", genre);
+      li.textContent = genre.charAt(0).toUpperCase() + genre.slice(1); // Capitalize genre
+      dropdownList.appendChild(li);
     });
   }
 

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="main.css">
     <!-- External JS with defer to load after HTML -->
-    <script src="dropdown.js" defer></script>
+    <!-- <script src="dropdown.js" defer></script> -->
     <script src="books.js"></script>
 
 </head>
@@ -67,12 +67,10 @@
             <!-- Dropdown for genre or topics -->
             <div class="dropdown-container">
                 <button type="button" class="dropdown-button" aria-haspopup="listbox" aria-expanded="false"
-                    aria-labelledby="listbox-label" onclick="toggleDropdown()">
+                    id="dropdown-button">
                     <!-- Selected dropdown item -->
                     <span class="dropdown-selected">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="User avatar" class="avatar">
-                        <span class="dropdown-text">Genre or Topic</span>
+                        <span class="dropdown-text">Select Genre or Topic</span>
                     </span>
                     <!-- Dropdown icon -->
                     <span class="dropdown-icon">
@@ -84,16 +82,18 @@
                     </span>
                 </button>
 
-                <!-- Dropdown list -->
-                <ul class="dropdown-options" id="dropdown-list">
-                    <li class="dropdown-option"
-                        onclick="selectOption('Wade Cooper', 'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80')">
-                        <img src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="Avatar" class="avatar">
-                        <span>Wade Cooper</span>
-                    </li>
-                    <!-- More options can be added here -->
+                <!-- Dropdown list (dynamic genres or topics) -->
+                <ul class="dropdown-options" id="dropdown-list" style="display: none;">
+                    <!-- Dynamic genres will be inserted here -->
                 </ul>
+            </div>
+        </div>
+
+        <!-- // spinner -->
+        <div id="spinner-container" class="container" style="display: none;">
+            <div class=" loader">
+                <div class="spinner" role="status" aria-label="loading">
+                </div>
             </div>
         </div>
 
