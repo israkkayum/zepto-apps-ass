@@ -276,10 +276,18 @@ body {
 }
 
 .love-icon {
-  width: 1.2rem;
-  height: 1.2rem;
-  margin-right: 0.25rem;
+  width: 24px;
+  height: 24px;
   margin-left: 0.25rem;
+  cursor: pointer;
+  transition: fill 0.3s ease, stroke 0.3s ease;
+  fill: none;
+  stroke: black; /* Default color */
+}
+
+.love-icon.liked {
+  fill: red; /* Change fill to red when liked */
+  stroke: red; /* Also change stroke to red when liked */
 }
 
 /* ....   */

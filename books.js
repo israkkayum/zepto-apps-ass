@@ -13,6 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
   let filteredBooks = []; // For filtered results
   let genres = new Set(); // Store unique genres/topics
 
+  // Wishlist stored in localStorage
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  // Function to update the wishlist counter
+  function updateWishlistCount() {
+    const wishlistCountElement = document.querySelector(".wishlist-count");
+    wishlistCountElement.textContent = wishlist.length; // Update the counter
+  }
+
   // Toggle dropdown visibility
   dropdownButton.addEventListener("click", () => {
     dropdownList.style.display =
@@ -77,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const booksToDisplay = books.slice(startIndex, endIndex);
 
     booksToDisplay.forEach((book) => {
+      const isLiked = wishlist.includes(book.id); // Check if book is in wishlist
       const div = document.createElement("div");
       div.innerHTML = `
         <div class="card-container">
@@ -89,10 +99,11 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="card-content">
               <div class="flex-container">
                 <a href="#" class="card-title">${book.title}</a>
-                <svg class="love-icon" stroke="currentColor" stroke-width="2"  
-                fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 24">
+                <svg class="love-icon ${isLiked ? "liked" : ""}" 
+                  data-id="${book.id}" stroke="currentColor" stroke-width="2"  
+                  fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 24">
                   <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg>
               </div>
               <p class="card-description">${
@@ -108,21 +119,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     .join(", ")}</a>
                 </div>
                 <div>
-                 <span class="views">
-                          <svg class="views-icon" stroke="currentColor" stroke-width="2" fill="none"
-                              stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
-                          </svg>
-                          ${book.id}
-                      </span>
+                  <span class="views">
+                    <svg class="views-icon" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
+                    </svg>
+                    ${book.id}
+                  </span>
                   <span class="comments">
-                          <svg class="comments-icon" stroke="currentColor" stroke-width="2" fill="none"
-                              stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                          </svg> ${book.download_count}
-                      </span>
+                    <svg class="comments-icon" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg> ${book.download_count}
+                  </span>
                 </div>
               </div>
             </div>
@@ -131,6 +142,30 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
       bookList.appendChild(div);
     });
+
+    // Attach click event listeners to love icons
+    document.querySelectorAll(".love-icon").forEach((icon) => {
+      icon.addEventListener("click", function () {
+        const bookId = parseInt(this.getAttribute("data-id"));
+
+        // Toggle like/unlike status in the DOM
+        this.classList.toggle("liked");
+
+        // Update wishlist in localStorage
+        if (wishlist.includes(bookId)) {
+          wishlist = wishlist.filter((id) => id !== bookId); // Remove from wishlist
+        } else {
+          wishlist.push(bookId); // Add to wishlist
+        }
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+        // Update the wishlist count
+        updateWishlistCount();
+      });
+    });
+
+    // Update the wishlist count on initial load
+    updateWishlistCount();
   }
 
   // Function to filter books by genre
