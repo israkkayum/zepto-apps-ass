@@ -1,0 +1,121 @@
+/* Main container */
+.book-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.overview {
+  flex: 1;
+  min-width: 300px;
+}
+
+.book-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Main container */
+.icon-container {
+  margin-top: 0.25rem; /* mt-1 */
+  display: flex;
+  height: 2.75rem; /* h-11 */
+  width: 2.75rem; /* w-11 */
+  flex-shrink: 0; /* flex-none */
+  align-items: center; /* items-center */
+  justify-content: center; /* justify-center */
+  background-color: #f9fafb; /* bg-gray-50 */
+  border-radius: 0.75rem; /* rounded-lg */
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+/* Change background color on hover */
+.icon-container:hover {
+  background-color: white; /* group-hover:bg-white */
+}
+
+/* SVG icon styling */
+.icon {
+  height: 1.5rem; /* h-6 */
+  width: 1.5rem; /* w-6 */
+  color: #4b5563; /* text-gray-600 */
+  transition: color 0.3s;
+}
+
+/* Change icon color on hover */
+.icon-container:hover .icon {
+  color: #4f46e5; /* group-hover:text-indigo-600 */
+}
+
+/* Reviews Section */
+.book-details {
+  flex: 2;
+  min-width: 300px;
+}
+
+.book-title h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.book-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.book-meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.book-char {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.bd-date {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.book-item p {
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.custom-list {
+  list-style-type: disc; /* Makes it a bulleted list */
+  padding-left: 1.25rem; /* Equivalent to 'pl-5' in Tailwind */
+  color: #64748b; /* Equivalent to 'text-slate-400' in Tailwind */
+  /* line-height: 1.5; */
+}
+
+.custom-list li {
+  margin-bottom: 0.75rem; /* Equivalent to 'space-y-3' in Tailwind */
+}
+
+.custom-list li::marker {
+  color: #38bdf8; /* Equivalent to 'marker:text-sky-400' in Tailwind */
+}
+
+.custom-list li a {
+  text-decoration: none;
+  color: #64748b;
+}
+.custom-list li:hover a {
+  color: green;
+}

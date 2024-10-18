@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist</title>
+    <title>Book Details</title>
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="main.css">
-    <script src="wishlist.js"></script>
-    <!-- <script src="books.js"></script> -->
+    <link rel="stylesheet" href="book-details.css">
 </head>
 
 <body>
+
     <nav>
         <!-- Container for all content -->
         <div class="nav-container">
@@ -46,6 +46,7 @@
     </nav>
 
     <div class="container">
+        <div class="book-details-container"></div>
 
         <!-- // spinner -->
         <div id="spinner-container" class="container" style="display: none;">
@@ -54,8 +55,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="grid-container" id="wishlist-container"></div>
 
         <div class="no-data-card" id="no-data-card" style="display: none;">
             <div class=" no-data-content">
@@ -73,10 +72,9 @@
                 </p>
             </div>
         </div>
+
     </div>
-
-
-    <script src="wishlist.js"></script>
+    <script src="book-details.js"></script>
 </body>
 
 </html>

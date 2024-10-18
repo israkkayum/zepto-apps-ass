@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const wishlistContainer = document.getElementById("wishlist-container");
+  const spinnerContainer = document.getElementById("spinner-container");
 
   // Check localStorage for wishlist
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
@@ -9,15 +10,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Fetch book data from the Gutenberg API
   async function fetchBooks() {
+    // Show the spinner before starting the fetch
+    spinnerContainer.style.display = "block";
+
     try {
       const response = await fetch("https://gutendex.com/books");
       const data = await response.json();
       books = data.results;
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      displayWishlistBooks();
+      spinnerContainer.style.display = "none";
     }
-    console.log(books);
-    displayWishlistBooks();
+    // console.log(books);
   }
 
   // Function to update the wishlist counter
@@ -38,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     wishlistContainer.innerHTML = ""; // Clear the container
 
     if (wishlist.length === 0) {
-      wishlistContainer.innerHTML = "<p>Your wishlist is empty.</p>";
+      noDataCard.style.display = "block";
       return;
     }
 
@@ -59,12 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="card-content">
               <div class="flex-container">
                 <a href="#" class="card-title">${book.title}</a>
-                <svg class="love-icon ${isLiked ? "liked" : ""}" 
-                  data-id="${book.id}" stroke="currentColor" stroke-width="2"  
-                  fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 24">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                </svg>
+               <div class="icon-container">
+                    <svg class="love-icon ${isLiked ? "liked" : ""}" 
+                  data-id="${
+                    book.id
+                  }" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
               </div>
               <p class="card-description">${
                 book.subjects.length > 0
