@@ -65,14 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="card-flex">
                 <div class="card-image-container">
                     <img class="card-image" src="${
-                      book.formats[" image/jpeg"] || "default-cover.jpg"
+                      book.formats["image/jpeg"] || "default-cover.jpg"
                     }">
                 </div>
                 <div class="card-content">
                     <div class="flex-container">
-                        <a class="card-title" href="../pages/book-details.html?id=${
-                          book.id
-                        }">${book.title}</a>
+                        <a class="card-title" href="../pages/?id=${book.id}">${
+        book.title
+      }</a>
                         <div class="icon-container">
                             <svg class="love-icon ${
                               isLiked ? " liked" : ""
