@@ -5,21 +5,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const dropdownButton = document.getElementById("dropdown-button");
   const dropdownList = document.getElementById("dropdown-list");
   const spinnerContainer = document.getElementById("spinner-container");
+  const noDataCard = document.getElementById("no-data-card");
 
-  let currentPage = 1;
-  const booksPerPage = 10;
-  let totalPages = 1;
   let booksData = [];
-  let filteredBooks = []; // For filtered results
-  let genres = new Set(); // Store unique genres/topics
+  let currentPage = 1;
+  let isFetching = false;
+  let nextUrl = null;
+  let prevUrl = null;
+  let genres = new Set();
 
-  // Wishlist stored in localStorage
+  // Store wishlist in localStorage
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
   // Function to update the wishlist counter
   function updateWishlistCount() {
     const wishlistCountElement = document.querySelector(".wishlist-count");
-    wishlistCountElement.textContent = wishlist.length; // Update the counter
+    wishlistCountElement.textContent = wishlist.length;
   }
 
   // Toggle dropdown visibility
@@ -38,63 +39,54 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Dropdown option select and filter books
-  dropdownList.addEventListener("click", (e) => {
-    if (e.target.classList.contains("dropdown-option")) {
-      const selectedGenre = e.target.getAttribute("data-genre");
-
-      // Update the selected genre text in the dropdown button
-      const dropdownText = document.querySelector(".dropdown-text");
-      dropdownText.textContent =
-        selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1);
-
-      // Filter books by the selected genre
-      filterBooksByGenre(selectedGenre);
-
-      // Close the dropdown after selecting an option
-      dropdownList.style.display = "none";
-    }
-  });
-
-  // Fetch book data from the Gutenberg API
-  async function fetchBooks() {
+  // Fetch books from the API with error handling
+  async function fetchBooks(url = "https://gutendex.com/books") {
+    if (isFetching) return; // Prevent overlapping fetches
+    isFetching = true;
     try {
-      // Show the spinner before starting the fetch
+      bookList.innerHTML = "";
       spinnerContainer.style.display = "block";
+      const response = await fetch(url);
 
-      const response = await fetch("https://gutendex.com/books");
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
       const data = await response.json();
       booksData = data.results;
-      filteredBooks = booksData; // Set filteredBooks initially to all books
+      nextUrl = data.next;
+      prevUrl = data.previous;
+
       extractGenres(booksData); // Extract genres from book data
       populateDropdown(genres); // Populate dropdown with extracted genres
-      totalPages = Math.ceil(filteredBooks.length / booksPerPage);
-      displayBooks(filteredBooks, currentPage);
-      generatePagination();
+      displayBooks(booksData); // Display books
+      generatePagination(); // Generate pagination after books are fetched
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       spinnerContainer.style.display = "none";
+      isFetching = false;
     }
   }
 
-  // Function to display books in the container based on the current page
-  function displayBooks(books, page) {
+  // Function to display books
+  function displayBooks(books) {
     bookList.innerHTML = "";
-    const startIndex = (page - 1) * booksPerPage;
-    const endIndex = startIndex + booksPerPage;
-    const booksToDisplay = books.slice(startIndex, endIndex);
+    if (books.length === 0) {
+      noDataCard.style.display = "block";
+      return;
+    }
 
-    booksToDisplay.forEach((book) => {
-      const isLiked = wishlist.includes(book.id); // Check if book is in wishlist
+    books.forEach((book) => {
+      const isLiked = wishlist.includes(book.id);
       const div = document.createElement("div");
       div.innerHTML = `
         <div class="card-container">
           <div class="card-flex">
             <div class="card-image-container">
-              <img class="card-image" src=${
+              <img class="card-image" src="${
                 book.formats["image/jpeg"] || "default-cover.jpg"
-              }>
+              }">
             </div>
             <div class="card-content">
               <div class="flex-container">
@@ -148,61 +140,92 @@ document.addEventListener("DOMContentLoaded", function () {
       bookList.appendChild(div);
     });
 
-    // Attach click event listeners to love icons
+    // Attach event listeners to love icons
     document.querySelectorAll(".love-icon").forEach((icon) => {
       icon.addEventListener("click", function () {
         const bookId = parseInt(this.getAttribute("data-id"));
-
-        // Toggle like/unlike status in the DOM
         this.classList.toggle("liked");
-
-        // Update wishlist in localStorage
         if (wishlist.includes(bookId)) {
-          wishlist = wishlist.filter((id) => id !== bookId); // Remove from wishlist
+          wishlist = wishlist.filter((id) => id !== bookId);
         } else {
-          wishlist.push(bookId); // Add to wishlist
+          wishlist.push(bookId);
         }
         localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-        // Update the wishlist count
         updateWishlistCount();
       });
     });
 
-    // Update the wishlist count on initial load
     updateWishlistCount();
   }
 
-  // Function to filter books by genre
-  function filterBooksByGenre(genre) {
-    filteredBooks = booksData.filter((book) => {
-      return book.subjects.some((subject) =>
-        subject.toLowerCase().includes(genre)
-      );
-    });
-    totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+  // Debounce Search functionality
+  function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  const debouncedSearch = debounce(function () {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    // Update the URL with the search query
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set("search", searchTerm);
+    window.history.replaceState(null, "", newUrl);
+
     currentPage = 1;
-    displayBooks(filteredBooks, currentPage);
-    generatePagination();
+
+    fetchBooks(`https://gutendex.com/books?search=${searchTerm}`);
+  }, 300);
+
+  searchInput.addEventListener("input", debouncedSearch);
+
+  // Dropdown option select and filter books
+  dropdownList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("dropdown-option")) {
+      const selectedGenre = e.target.getAttribute("data-genre");
+
+      const dropdownText = document.querySelector(".dropdown-text");
+      dropdownText.textContent =
+        selectedGenre.charAt(0).toUpperCase() + selectedGenre.slice(1);
+
+      filterBooksByGenre(selectedGenre);
+
+      dropdownList.style.display = "none";
+    }
+  });
+
+  // Function to filter books by genre (query API using `topic` parameter)
+  function filterBooksByGenre(genre) {
+    // Update the URL with the genre parameter
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set("genre", genre);
+    window.history.replaceState(null, "", newUrl);
+
+    currentPage = 1;
+
+    fetchBooks(`https://gutendex.com/books?topic=${genre.toLowerCase()}`);
   }
 
   // Extract unique genres/topics from the book data
   function extractGenres(books) {
     books.forEach((book) => {
       book.subjects.forEach((subject) => {
-        genres.add(subject.toLowerCase()); // Add genre to the Set
+        genres.add(subject.toLowerCase());
       });
     });
   }
 
   // Populate dropdown with genres/topics
   function populateDropdown(genres) {
-    dropdownList.innerHTML = ""; // Clear existing options
+    dropdownList.innerHTML = "";
     genres.forEach((genre) => {
       const li = document.createElement("li");
       li.classList.add("dropdown-option");
       li.setAttribute("data-genre", genre);
-      li.textContent = genre.charAt(0).toUpperCase() + genre.slice(1); // Capitalize genre
+      li.textContent = genre.charAt(0).toUpperCase() + genre.slice(1);
       dropdownList.appendChild(li);
     });
   }
@@ -212,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination.innerHTML = `
     <li>
       <button class="pagination-button ${
-        currentPage === 1 ? "disabled" : ""
+        !prevUrl ? "disabled" : ""
       }" id="prev-page">
         <span>
           <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -223,18 +246,14 @@ document.addEventListener("DOMContentLoaded", function () {
     </li>
   `;
 
-    for (let i = 1; i <= totalPages; i++) {
-      pagination.innerHTML += `
-      <li><button class="pagination-button ${
-        i === currentPage ? "active" : ""
-      }" data-page="${i}">${i}</button></li>
-    `;
-    }
+    pagination.innerHTML += `
+    <li><button class="pagination-button active">${currentPage}</button></li>
+  `;
 
     pagination.innerHTML += `
     <li>
       <button class="pagination-button ${
-        currentPage === totalPages ? "disabled" : ""
+        !nextUrl ? "disabled" : ""
       }" id="next-page">
         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M18 10L11.5312 3.4375C11.25 3.15625 10.8125 3.15625 10.5312 3.4375C10.25 3.71875 10.25 4.15625 10.5312 4.4375L15.7812 9.78125H2.5C2.125 9.78125 1.8125 10.0937 1.8125 10.4688C1.8125 10.8438 2.125 11.1875 2.5 11.1875H15.8437L10.5312 16.5938C10.25 16.875 10.25 17.3125 10.5312 17.5938C10.6562 17.7188 10.8437 17.7812 11.0312 17.7812C11.2187 17.7812 11.4062 17.7188 11.5312 17.5625L18 11C18.2812 10.7187 18.2812 10.2812 18 10Z" fill="currentColor"/>
@@ -244,45 +263,21 @@ document.addEventListener("DOMContentLoaded", function () {
   `;
   }
 
-  // Real-time search function
-  searchInput.addEventListener("input", function () {
-    const searchTerm = searchInput.value.toLowerCase();
-    filteredBooks = booksData.filter((book) =>
-      book.title.toLowerCase().includes(searchTerm)
-    );
-    totalPages = Math.ceil(filteredBooks.length / booksPerPage);
-    currentPage = 1; // Reset to page 1 after each search
-    displayBooks(filteredBooks, currentPage);
-    generatePagination();
-  });
-
   // Event listener for pagination buttons
-  pagination.addEventListener("click", function (e) {
-    const targetButton = e.target.closest("button"); // Make sure we target the closest button
-    if (!targetButton) return; // If no button, exit
+  pagination.addEventListener("click", async function (e) {
+    const targetButton = e.target.closest("button");
+    if (!targetButton) return;
 
-    if (targetButton.classList.contains("pagination-button")) {
-      const page = targetButton.getAttribute("data-page");
-      if (page) {
-        currentPage = parseInt(page);
-        displayBooks(booksData, currentPage);
-        generatePagination();
-      }
-    }
-
-    if (targetButton.id === "prev-page" && currentPage > 1) {
+    if (targetButton.id === "prev-page" && prevUrl) {
       currentPage--;
-      displayBooks(booksData, currentPage);
-      generatePagination();
+      await fetchBooks(prevUrl);
     }
 
-    if (targetButton.id === "next-page" && currentPage < totalPages) {
+    if (targetButton.id === "next-page" && nextUrl) {
       currentPage++;
-      displayBooks(booksData, currentPage);
-      generatePagination();
+      await fetchBooks(nextUrl);
     }
   });
 
-  // Fetch books on page load
-  fetchBooks();
+  fetchBooks("https://gutendex.com/books");
 });

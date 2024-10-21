@@ -259,7 +259,7 @@ body {
 
 /* Content padding */
 .card-content {
-  padding: 2em 1.5em 0em;
+  padding: 1.5em 1.5em 1.5em;
 }
 
 /* Link styling */
@@ -270,7 +270,7 @@ body {
   font-weight: 500;
   color: black;
   text-decoration: none;
-  line-height: 1.25rem;
+  line-height: 1.5rem;
   cursor: pointer;
 }
 
