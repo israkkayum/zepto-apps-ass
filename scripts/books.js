@@ -57,10 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
       nextUrl = data.next;
       prevUrl = data.previous;
 
-      extractGenres(booksData); // Extract genres from book data
-      populateDropdown(genres); // Populate dropdown with extracted genres
-      displayBooks(booksData); // Display books
-      generatePagination(); // Generate pagination after books are fetched
+      extractGenres(booksData);
+      populateDropdown(genres);
+      displayBooks(booksData);
+      generatePagination();
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <div class="card-content">
               <div class="flex-container">
-                  <a class="card-title" href="/book-details.html?id=${
+                  <a class="card-title" href="../pages/book-details.html?id=${
                     book.id
                   }">${book.title}</a>
 
@@ -199,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to filter books by genre (query API using `topic` parameter)
   function filterBooksByGenre(genre) {
-    // Update the URL with the genre parameter
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set("genre", genre);
     window.history.replaceState(null, "", newUrl);

@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add click event listener to the hamburger button
   hamburger.addEventListener("click", function () {
-    // Toggle the 'opened' class on the nav to show/hide the menu
     nav.classList.toggle("opened");
   });
 });

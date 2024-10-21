@@ -1,4 +1,4 @@
-/* Style the navigation bar */
+/* Navigation Bar Styles */
 nav {
   position: fixed;
   top: 0;
@@ -11,7 +11,7 @@ nav {
   box-shadow: 0.3px 0.3px 0.3px 0.3px gainsboro;
 }
 
-/* Container to center content */
+/* Navigation Container */
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -21,7 +21,7 @@ nav {
   padding: 0 1.5em;
 }
 
-/* Logo styles */
+/* Logo Styles */
 .logo img {
   width: 50px;
   height: 20px;
@@ -29,20 +29,21 @@ nav {
   align-items: center;
 }
 
+/* Navigation Menu */
 .nav-menu {
   list-style: none;
   display: flex;
-  gap: 2em; /* Space between list items */
+  gap: 2em;
   padding: 0;
   margin: 0;
 }
 
+/* Navigation Links */
 .nav-item a {
-  /* line-height: 70px; */
   text-decoration: none;
   color: rgb(17 24 39);
-  font-weight: normal;
   font-size: 16px;
+  font-weight: normal;
 }
 
 /* Wishlist Container */
@@ -63,14 +64,8 @@ nav {
 .wishlist-icon {
   width: 24px;
   height: 24px;
-  /* color: #9ca3af; */
   color: rgb(17 24 39);
   transition: color 0.3s ease;
-}
-
-/* Hover State for Wishlist Icon */
-.wishlist-link:hover .wishlist-icon {
-  color: #6b7280;
 }
 
 /* Wishlist Count */
@@ -78,17 +73,21 @@ nav {
   margin-left: 8px;
   font-size: 0.875rem;
   font-weight: 500;
-  /* color: #9ca3af; */
   color: rgb(17 24 39);
   transition: color 0.3s ease;
 }
 
-/* Hover State for Wishlist Count */
+/* Hover Effects */
+.wishlist-link:hover .wishlist-icon {
+  color: #6b7280;
+}
+
 .wishlist-link:hover .wishlist-count {
   color: #1f2937;
 }
 
-nav .btn-hamburger {
+/* Hamburger Button (for mobile menu) */
+.btn-hamburger {
   display: none;
   position: absolute;
   left: 1.5em;
@@ -99,7 +98,8 @@ nav .btn-hamburger {
   outline: none;
   transform: translateY(-50%);
 }
-nav .btn-hamburger span {
+
+.btn-hamburger span {
   display: block;
   width: 20px;
   height: 2px;
@@ -108,6 +108,13 @@ nav .btn-hamburger span {
   border-radius: 2px;
   transition: 0.3s ease-in-out;
 }
+
+nav.opened .btn-hamburger span:nth-child(1),
+nav.opened .btn-hamburger span:nth-child(2),
+nav.opened .btn-hamburger span:nth-child(3) {
+  opacity: 0;
+}
+
 nav .btn-hamburger span:nth-child(4),
 nav .btn-hamburger span:nth-child(5) {
   position: absolute;
@@ -128,19 +135,14 @@ nav.opened .btn-hamburger span:nth-child(5) {
   opacity: 1;
   transform: rotate(-45deg) scale(1);
 }
-nav.opened .btn-hamburger span:nth-child(1),
-nav.opened .btn-hamburger span:nth-child(2),
-nav.opened .btn-hamburger span:nth-child(3) {
-  opacity: 0;
-}
 
+/* Mobile Styles */
 @media screen and (max-width: 640px) {
   .nav-container {
     justify-content: center;
-    position: relative; /* Allows absolute positioning */
+    position: relative;
   }
 
-  /* Keep the wishlist on the right */
   .wishlist-container {
     position: absolute;
     right: 1.5em;

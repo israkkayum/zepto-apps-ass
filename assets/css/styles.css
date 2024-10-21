@@ -1,3 +1,4 @@
+/* General Styles */
 body {
   /* font-family: "PT Sans", sans-serif; */
   font-family: "Arial", sans-serif;
@@ -24,8 +25,7 @@ body {
   }
 }
 
-/* .....  */
-
+/* Filter Section */
 .filter-section {
   display: flex;
   flex-wrap: wrap;
@@ -35,7 +35,7 @@ body {
   gap: 5px;
 }
 
-/* Search Bar */
+/* Search Bar Styles */
 .search-container {
   width: 350px;
   display: flex;
@@ -48,20 +48,17 @@ body {
   padding: 8px 0cm;
 }
 
-/* Search Icon */
 .search-icon {
   padding-left: 8px;
   padding-right: 8px;
   color: #0f172a;
 }
 
-/* Search Icon SVG */
 .search-icon-svg {
   width: 20px;
   height: 20px;
 }
 
-/* Search Input */
 .search-input {
   all: unset;
   width: 100%;
@@ -83,22 +80,18 @@ body {
   border-radius: 0;
 }
 
-/* Focus State for Search Input */
 .search-container:focus {
   outline: none;
   border-color: rgb(229 229 229);
   box-shadow: 0 0 0 1px rgb(229 229 229);
 }
 
-/* .....  */
-
-/* Dropdown Container */
+/* Dropdown Menu */
 .dropdown-container {
   position: relative;
   width: 350px;
 }
 
-/* Dropdown Button */
 .dropdown-button {
   width: 100%;
   background-color: white;
@@ -111,7 +104,6 @@ body {
   cursor: pointer;
 }
 
-/* Selected Dropdown Item - Avatar and Text */
 .dropdown-selected {
   display: flex;
   align-items: center;
@@ -123,7 +115,6 @@ body {
   line-height: 1.25rem;
 }
 
-/* Dropdown Icon */
 .dropdown-icon {
   margin-left: auto;
   color: #0f172a;
@@ -134,7 +125,6 @@ body {
   height: 20px;
 }
 
-/* Dropdown Options (Hidden by Default) */
 .dropdown-options {
   position: absolute;
   width: 100%;
@@ -150,7 +140,6 @@ body {
   padding: 0;
 }
 
-/* Dropdown Option Item */
 .dropdown-option {
   padding: 10px;
   cursor: pointer;
@@ -164,12 +153,10 @@ body {
   white-space: nowrap;
 }
 
-/* Hover Effect on Dropdown Option */
 .dropdown-option:hover {
   background-color: #e5e7eb;
 }
 
-/* Small devices (mobile phones, 480px and below) */
 @media screen and (max-width: 640px) {
   .filter-section {
     flex-direction: column;
@@ -191,9 +178,7 @@ body {
   }
 }
 
-/* ....  */
-
-/* Grid Container */
+/* Grid Container for Book Cards */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -206,9 +191,7 @@ body {
   }
 }
 
-/* .....  */
-
-/* Card container styles */
+/* Card Styles */
 .card-container {
   max-width: 42rem;
   margin-left: auto;
@@ -219,13 +202,6 @@ body {
   overflow: hidden;
 }
 
-/* @media (max-width: 768px) {
-  .card-container {
-    max-width: 28rem;
-  }
-} */
-
-/* Flexbox layout for the card on larger screens */
 .card-flex {
   display: flex;
   flex-direction: row;
@@ -237,7 +213,6 @@ body {
   }
 }
 
-/* Image container styles */
 .card-image-container {
   flex-shrink: 0;
   height: 230px;
@@ -257,12 +232,10 @@ body {
   }
 }
 
-/* Content padding */
 .card-content {
   padding: 1.5em 1.5em 1.5em;
 }
 
-/* Link styling */
 .card-title {
   display: block;
   /* margin-top: 15px; */
@@ -278,14 +251,12 @@ body {
   text-decoration: underline;
 }
 
-/* Description text */
 .card-description {
   margin-top: 15px;
   color: #64748b;
   line-height: 1.5rem;
 }
 
-/* author name  */
 .author-name {
   color: #6366f1;
   display: inline-flex;
@@ -294,45 +265,41 @@ body {
   font-size: 1rem;
 }
 
-/* Main container */
 .icon-container {
-  margin-top: 0.25rem; /* mt-1 */
+  margin-top: 0.25rem;
   display: flex;
-  height: 2.75rem; /* h-11 */
-  width: 2.75rem; /* w-11 */
-  flex-shrink: 0; /* flex-none */
-  align-items: center; /* items-center */
-  justify-content: center; /* justify-center */
-  background-color: #f9fafb; /* bg-gray-50 */
-  border-radius: 0.75rem; /* rounded-lg */
+  height: 2.75rem;
+  width: 2.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
   transition: background-color 0.3s;
   cursor: pointer;
 }
 
-/* Change background color on hover */
 .icon-container:hover {
-  background-color: white; /* group-hover:bg-white */
+  background-color: white;
 }
 
 .love-icon {
   cursor: pointer;
   margin-left: 0.25rem;
-  height: 1.3rem; /* h-6 */
-  width: 1.3rem; /* w-6 */
-  color: #4b5563; /* text-gray-600 */
+  height: 1.3rem;
+  width: 1.3rem;
+  color: #4b5563;
   transition: color 0.3s;
 }
 
 .icon-container:hover .love-icon {
-  color: #4f46e5; /* group-hover:text-indigo-600 */
+  color: #4f46e5;
 }
 
 .love-icon.liked {
-  fill: red; /* Change fill to red when liked */
-  stroke: red; /* Also change stroke to red when liked */
+  fill: red;
+  stroke: red;
 }
-
-/* ....   */
 
 .flex-container {
   display: flex;
@@ -387,8 +354,7 @@ body {
   margin-right: 0.35rem;
 }
 
-/* .....  */
-
+/* Pagination Styles */
 .pagination-container {
   background-color: white;
   padding: 2.5rem 0;
@@ -473,13 +439,13 @@ body {
 /* Spinner animation */
 .spinner {
   display: inline-block;
-  width: 1.5rem; /* Equivalent to 'size-6' */
+  width: 1.5rem;
   height: 1.5rem;
-  border: 3px solid currentColor; /* Equivalent to 'border-[3px] border-current' */
-  border-top-color: transparent; /* Equivalent to 'border-t-transparent' */
-  border-radius: 50%; /* Equivalent to 'rounded-full' */
-  color: #2563eb; /* Equivalent to 'text-blue-600' */
-  animation: spin 1s linear infinite; /* Equivalent to 'animate-spin' */
+  border: 3px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  color: #2563eb;
+  animation: spin 1s linear infinite;
 }
 
 /* Keyframes for the spin animation */

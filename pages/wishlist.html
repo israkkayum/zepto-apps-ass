@@ -4,68 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Details</title>
-    <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="book-details.css">
+    <title>Wishlist</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../assets/css/navigation.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+
+    <!-- External JS -->
+    <script src="../scripts/wishlist.js" defer></script>
 </head>
 
 <body>
-
+    <!-- Navigation Bar -->
     <nav>
-        <!-- Container for all content -->
         <div class="nav-container">
-
             <div style="display: flex; align-items: center; gap: 30px;">
-                <!-- Logo -->
                 <div class="logo">
-                    <img src="images/book-logo.png" alt="Logo">
+                    <img src="../assets/images/book-logo.png" alt="Zepto Apps Logo">
                 </div>
-
                 <button type="button" class="btn-hamburger" data-action="nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span><span></span><span></span>
                 </button>
-
-                <!-- Navigation menu -->
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="index.html">Home</a></li>
                     <li class="nav-item"><a href="#books">Books</a></li>
                     <li class="nav-item"><a href="#contact">Contact</a></li>
                 </ul>
             </div>
-
-            <!-- Wishlist link -->
             <div class="wishlist-container">
-                <a href="/wishlist.html" class="wishlist-link">
-                    <svg class="wishlist-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                        aria-hidden="true">
+                <a href="wishlist.html" class="wishlist-link">
+                    <svg class="wishlist-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.74 0 3.41.81 4.5 2.09C12.09 4.81 13.76 4 15.5 4 18 4 20 6 20 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
                     <div><span class="wishlist-count">0</span></div>
                 </a>
             </div>
-
         </div>
     </nav>
 
+    <!-- Main Content -->
     <div class="container">
-        <div class="book-details-container"></div>
-
-        <!-- // spinner -->
+        <!-- Loading Spinner -->
         <div id="spinner-container" class="container" style="display: none;">
-            <div class=" loader">
-                <div class="spinner" role="status" aria-label="loading">
-                </div>
+            <div class="loader">
+                <div class="spinner" role="status" aria-label="loading"></div>
             </div>
         </div>
 
+        <!-- Wishlist Books Grid -->
+        <div class="grid-container" id="wishlist-container"></div>
+
+        <!-- No Data Card -->
         <div class="no-data-card" id="no-data-card" style="display: none;">
-            <div class=" no-data-content">
+            <div class="no-data-content">
                 <svg class="no-data-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="22" x2="2" y1="12" y2="12"></line>
@@ -75,15 +67,13 @@
                     <line x1="6" x2="6.01" y1="16" y2="16"></line>
                     <line x1="10" x2="10.01" y1="16" y2="16"></line>
                 </svg>
-                <p class="no-data-text">
-                    No data to show
-                </p>
+                <p class="no-data-text">No data to show</p>
             </div>
         </div>
-
     </div>
-    <script src="nav.js"></script>
-    <script src="book-details.js"></script>
+
+    <!-- Navigation Script -->
+    <script src="../scripts/navbar.js" defer></script>
 </body>
 
 </html>

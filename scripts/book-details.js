@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const spinnerContainer = document.getElementById("spinner-container");
   const noDataCard = document.getElementById("no-data-card");
-  // Fetch the book details using the ID from the query parameters
   const bookId = new URLSearchParams(window.location.search).get("id");
 
   // Wishlist stored in localStorage
@@ -10,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to update the wishlist counter
   function updateWishlistCount() {
     const wishlistCountElement = document.querySelector(".wishlist-count");
-    wishlistCountElement.textContent = wishlist.length; // Update the counter
+    wishlistCountElement.textContent = wishlist.length;
   }
   updateWishlistCount();
 
@@ -75,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
            </div>`
           : "";
 
-      const isLiked = wishlist.includes(id); // Check if book is in wishlist
+      const isLiked = wishlist.includes(id);
 
       // Set the innerHTML to render the details in the container
       bookContainer.innerHTML = `
@@ -150,10 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
       icon.addEventListener("click", function () {
         const wishListBookId = parseInt(this.getAttribute("data-id"));
 
-        // Toggle like/unlike status in the DOM
         this.classList.toggle("liked");
 
-        // Update wishlist in localStorage
         if (wishlist.includes(wishListBookId)) {
           wishlist = wishlist.filter((id) => id !== wishListBookId); // Remove from wishlist
         } else {
@@ -161,12 +158,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         localStorage.setItem("wishlist", JSON.stringify(wishlist));
 
-        // Update the wishlist count
         updateWishlistCount();
       });
     });
   }
 
-  // Example usage: Fetch book with ID 1342 (Frankenstein)
   fetchBookDetails(bookId);
 });
