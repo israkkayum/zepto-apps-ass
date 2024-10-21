@@ -152,7 +152,7 @@ We welcome contributions to improve this project! Here’s how you can help:
 - Commit your changes:
 
   ```bash
-   git commit -m "Add your message here
+   git commit -m "Add your message here"
   ```
 
 - Push to the branch:
