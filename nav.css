@@ -8,11 +8,12 @@ nav {
   background-color: #fffafa;
   align-content: center;
   z-index: 1000;
+  box-shadow: 0.3px 0.3px 0.3px 0.3px gainsboro;
 }
 
 /* Container to center content */
 .nav-container {
-  max-width: 1200px; /* Adjust this based on your homepage container */
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -37,6 +38,7 @@ nav {
 }
 
 .nav-item a {
+  /* line-height: 70px; */
   text-decoration: none;
   color: rgb(17 24 39);
   font-weight: normal;
@@ -84,4 +86,92 @@ nav {
 /* Hover State for Wishlist Count */
 .wishlist-link:hover .wishlist-count {
   color: #1f2937;
+}
+
+nav .btn-hamburger {
+  display: none;
+  position: absolute;
+  left: 1.5em;
+  top: 50%;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  transform: translateY(-50%);
+}
+nav .btn-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: black;
+  margin: 5px;
+  border-radius: 2px;
+  transition: 0.3s ease-in-out;
+}
+nav .btn-hamburger span:nth-child(4),
+nav .btn-hamburger span:nth-child(5) {
+  position: absolute;
+  top: 8px;
+  opacity: 0.5;
+}
+nav .btn-hamburger span:nth-child(4) {
+  transform: rotate(45deg) scale(0);
+}
+nav .btn-hamburger span:nth-child(5) {
+  transform: rotate(-45deg) scale(0);
+}
+nav.opened .btn-hamburger span:nth-child(4) {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+nav.opened .btn-hamburger span:nth-child(5) {
+  opacity: 1;
+  transform: rotate(-45deg) scale(1);
+}
+nav.opened .btn-hamburger span:nth-child(1),
+nav.opened .btn-hamburger span:nth-child(2),
+nav.opened .btn-hamburger span:nth-child(3) {
+  opacity: 0;
+}
+
+@media screen and (max-width: 640px) {
+  .nav-container {
+    justify-content: center;
+    position: relative; /* Allows absolute positioning */
+  }
+
+  /* Keep the wishlist on the right */
+  .wishlist-container {
+    position: absolute;
+    right: 1.5em;
+  }
+
+  nav .nav-menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 70px;
+    bottom: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    background-color: #fffafa;
+    transition: bottom 0.5s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0.3px 0.3px 0.3px 0.3px gainsboro;
+  }
+  nav.opened .nav-menu {
+    border-top: 1px solid gainsboro;
+    padding-top: 30px;
+    bottom: 0;
+    overflow: scroll;
+  }
+  nav .nav-item > a {
+    padding: 0 2em;
+    display: block;
+  }
+
+  nav .btn-hamburger {
+    display: block;
+  }
 }

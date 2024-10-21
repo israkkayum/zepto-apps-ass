@@ -64,7 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <div class="card-content">
               <div class="flex-container">
-                <a href="#" class="card-title">${book.title}</a>
+               <a class="card-title" href="/book-details.html?id=${book.id}">${
+        book.title
+      }</a>
                <div class="icon-container">
                     <svg class="love-icon ${isLiked ? "liked" : ""}" 
                   data-id="${
@@ -80,23 +82,23 @@ document.addEventListener("DOMContentLoaded", function () {
                   : "Unknown"
               }
               </p>
-              <div class="flex-container">
+              <div class="card-footer-container">
                 <div>
                   <a class="author-name"> By ${book.authors
                     .map((author) => author.name)
                     .join(", ")}</a>
                 </div>
                 <div>
-                  <span class="views">
-                    <svg class="views-icon" stroke="currentColor" stroke-width="2" fill="none"
+                  <span class="id-view">
+                    <svg class="id-view-icon" stroke="currentColor" stroke-width="2" fill="none"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
                     </svg>
                     ${book.id}
                   </span>
-                  <span class="comments">
-                    <svg class="comments-icon" stroke="currentColor" stroke-width="2" fill="none"
+                  <span class="downloads">
+                    <svg class="downloads-icon" stroke="currentColor" stroke-width="2" fill="none"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
